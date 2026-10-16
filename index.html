@@ -2,9 +2,611 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Poster</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NP Trafficking in the TIME – Monson et al.</title>
+<meta name="description" content="Interactive poster: Nanoparticle trafficking in the tumor immune microenvironment. Stephanie Monson, University of Pennsylvania.">
+<style>
+  :root {
+    color-scheme: light;
+    --maroon: #8a0f1b;
+    --maroon-dark: #5e0a12;
+    --navy: #1b3560;
+    --blue: #2f6fd1;
+    --orange: #e0662a;
+    --ink: #1c1f24;
+    --muted: #5b6270;
+    --paper: #ffffff;
+    --bg: #f3eeee;
+    --line: #e3dada;
+    --soft: #f7f4f4;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  img, video { max-width: 100%; display: block; }
+  a { color: var(--navy); }
+
+  /* ---------- Header ---------- */
+  .top {
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color: #fff;
+    padding: 28px 16px 24px;
+  }
+  .top-inner { max-width: 1480px; margin: 0 auto; display: flex; gap: 24px; align-items: center; }
+  .logo { background: #fff; border-radius: 8px; padding: 8px 10px; flex: 0 0 auto; width: 170px; }
+  .top h1 { font-size: clamp(1.35rem, 2.6vw, 2.2rem); line-height: 1.2; margin: 0 0 10px; font-weight: 650; letter-spacing: -0.01em; }
+  .authors { margin: 0; font-size: 1rem; opacity: .95; }
+  .authors strong { font-weight: 650; }
+  .affil { margin: 2px 0 14px; opacity: .8; font-size: .95rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 14px; border-radius: 999px; font-weight: 600; font-size: .92rem;
+    text-decoration: none; background: #fff; color: var(--maroon);
+  }
+  .btn.ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.45); }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* ---------- Section nav ---------- */
+  nav.jump {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,.94); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.jump ul { list-style: none; margin: 0 auto; padding: 8px 16px; max-width: 1480px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  nav.jump ul::-webkit-scrollbar { display: none; }
+  nav.jump a { display: block; white-space: nowrap; padding: 6px 12px; border-radius: 999px; text-decoration: none; color: var(--ink); font-size: .9rem; font-weight: 550; }
+  nav.jump a:hover { background: var(--soft); }
+  .hint { max-width: 1480px; margin: 12px auto 0; padding: 0 16px; color: var(--muted); font-size: .88rem; }
+
+  /* ---------- Poster grid ---------- */
+  main.poster { max-width: 1480px; margin: 0 auto; padding: 12px 16px 48px; display: grid; gap: 18px; grid-template-columns: 1fr; }
+  .col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  @media (min-width: 1100px) {
+    main.poster { grid-template-columns: 1fr 1.75fr 1fr; align-items: start; }
+  }
+
+  section.panel {
+    background: var(--paper); border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(60,10,10,.05);
+    overflow: hidden; scroll-margin-top: 60px;
+  }
+  .panel > h2 {
+    margin: 0; padding: 12px 18px; font-size: 1.3rem; color: var(--maroon);
+    border-bottom: 3px solid var(--maroon); letter-spacing: -0.01em;
+  }
+  .panel-body { padding: 16px 18px 18px; }
+  h3.sub {
+    margin: 0 0 12px; padding: 10px 14px; border-radius: 8px;
+    background: var(--navy); color: #fff; font-size: 1.02rem; line-height: 1.35; font-weight: 600;
+  }
+  h3.sub u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .result + .result { margin-top: 26px; }
+  p { margin: 0 0 10px; }
+  .muted { color: var(--muted); }
+  .small { font-size: .85rem; }
+
+  .pill-card { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 0 0 12px; background: var(--soft); }
+  .pill-card > .lbl { display: block; padding: 6px 12px; color: #fff; font-weight: 600; font-size: .85rem; letter-spacing: .02em; text-align: center; }
+  .pill-card > .lbl.blue { background: var(--blue); }
+  .pill-card > .lbl.red { background: #c9302c; }
+  .pill-card > .lbl.navy { background: var(--navy); }
+  .pill-card > .lbl.dark { background: #222; }
+  .pill-card .txt { padding: 10px 12px; font-size: .95rem; }
+  .pill-card ul, .pill-card ol { margin: 0; padding-left: 20px; }
+  .panel-body { container-type: inline-size; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @container (max-width: 440px) { .two { grid-template-columns: 1fr; } }
+
+  .tag { display: inline-block; background: var(--blue); color: #fff; font-weight: 600; font-size: .82rem; padding: 2px 8px; border-radius: 5px; margin-right: 6px; }
+  .tagline { margin: 0 0 10px; padding: 8px 10px; background: var(--soft); border-radius: 8px; border: 1px solid var(--line); font-size: .95rem; }
+
+  figure { margin: 0; }
+  figure.img { margin: 0 0 12px; }
+  figure.img img { width: 100%; height: auto; border-radius: 8px; }
+  figcaption { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- Video tiles ---------- */
+  .vid {
+    position: relative; border-radius: 10px; overflow: hidden; background: #fafafa;
+    border: 1px solid var(--line); cursor: zoom-in;
+  }
+  .vid video { width: 100%; height: auto; aspect-ratio: var(--ar, 912/720); object-fit: cover; background: #fafafa; }
+  .vid .play-badge {
+    position: absolute; right: 6px; bottom: 6px; background: rgba(0,0,0,.55); color: #fff;
+    font-size: .7rem; padding: 2px 7px; border-radius: 999px; pointer-events: none; letter-spacing: .03em;
+  }
+
+  .s1-grid { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
+  @media (min-width: 640px) { .s1-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* 2a regime cards */
+  .arrow-banner {
+    position: relative; background: var(--blue); color: #fff; text-align: center;
+    padding: 8px 40px 8px 14px; border-radius: 6px; margin: 0 0 12px; font-weight: 550; font-size: .95rem;
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%);
+  }
+  .regimes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 900px) { .regimes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 330px) { .regimes { grid-template-columns: 1fr; } }
+  .regime { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+  .regime .num {
+    position: absolute; left: 6px; top: 6px; z-index: 2; background: #fff; color: var(--ink);
+    border: 1.5px solid var(--ink); font-weight: 700; width: 26px; height: 26px; border-radius: 6px;
+    display: grid; place-items: center; font-size: .95rem;
+  }
+  .regime .vid { border: 0; border-radius: 0; border-bottom: 1px solid var(--line); }
+  .regime .meta { padding: 8px 10px 10px; font-size: .86rem; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; }
+  .regime .meta b { display: block; font-size: .8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .regime .meta ul { margin: 0 0 6px; padding-left: 16px; }
+  @media (max-width: 520px) { .regime .meta { grid-template-columns: 1fr; } .regime .maps { width: 100% !important; max-width: 100px; margin: 0 auto; } }
+  .regime .maps { width: 64px; border-radius: 4px; border: 1px solid var(--line); cursor: zoom-in; }
+
+  /* 2b grid */
+  .grid2b { display: grid; grid-template-columns: 34px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: stretch; }
+  .grid2b .colhead { text-align: center; font-size: .82rem; font-weight: 600; color: var(--muted); padding: 2px 0; }
+  .grid2b .rowhead { writing-mode: vertical-rl; transform: rotate(180deg); display: grid; place-items: center; font-weight: 700; color: var(--ink); font-size: .9rem; background: var(--soft); border-radius: 8px; border: 1px solid var(--line); }
+  .grid2b .cell { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+  .grid2b .cell .vid { border: 0; border-radius: 0; }
+  .grid2b .cell img { border-top: 1px solid var(--line); cursor: zoom-in; width: 100%; height: auto; }
+  .grid2b .divider { grid-column: 1 / -1; border-top: 2px dashed #b9b0b0; margin: 4px 0; }
+  .remodel-banner {
+    margin: 12px 0 12px; background: var(--blue); color: #fff; text-align: center; font-weight: 550; font-size: .95rem;
+    padding: 9px 34px; border-radius: 6px;
+    clip-path: polygon(0 50%, 22px 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 22px 100%);
+  }
+  @media (max-width: 520px) {
+    .grid2b { grid-template-columns: 26px repeat(3, minmax(0, 1fr)); gap: 5px; }
+    .grid2b .colhead { font-size: .7rem; }
+  }
+
+  /* Conclusions flow */
+  .flow .pill-card { margin-bottom: 0; }
+  .flow .down { text-align: center; color: var(--blue); font-size: 1.4rem; line-height: 1; margin: 4px 0; }
+
+  .fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 420px) { .fw-grid { grid-template-columns: 1fr; } }
+  .fw-grid .pill-card .txt { text-align: center; font-size: .9rem; }
+
+  .ack { display: grid; grid-template-columns: 1fr 70px; gap: 12px; align-items: center; font-size: .92rem; }
+  ol.refs { margin: 0; padding-left: 22px; font-size: .86rem; }
+  ol.refs li { margin-bottom: 6px; overflow-wrap: anywhere; }
+
+  footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 0 16px 40px; }
+
+  /* ---------- Lightbox ---------- */
+  dialog.lb {
+    border: 0; padding: 0; background: transparent; max-width: min(96vw, 1200px); max-height: 92vh; width: auto;
+  }
+  dialog.lb::backdrop { background: rgba(10,10,14,.86); }
+  dialog.lb .lb-inner { position: relative; background: #fff; border-radius: 12px; overflow: hidden; }
+  dialog.lb video, dialog.lb img { max-width: min(96vw, 1200px); max-height: 80vh; width: auto; height: auto; margin: 0 auto; }
+  dialog.lb .lb-cap { padding: 10px 14px; font-size: .92rem; color: var(--ink); }
+  dialog.lb .lb-close {
+    position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border-radius: 50%;
+    border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 20px; line-height: 36px; cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    .top-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .logo { width: 130px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
 </head>
 <body>
-test
+
+<!-- ===================== HEADER ===================== -->
+<header class="top">
+  <div class="top-inner">
+    <img class="logo" src="files/penn_logo.png" alt="University of Pennsylvania">
+    <div>
+      <h1>Nanoparticle trafficking in the tumor immune microenvironment is driven by coupling of cell-intrinsic and extrinsic immune mechanisms</h1>
+      <p class="authors"><strong>Stephanie Monson</strong>, Sahil Kulkarni, Kshitiz Parihar, Jake Brenner, Jacob Myerson, Ravi Radhakrishnan</p>
+      <p class="affil">The University of Pennsylvania · GSS 2026</p>
+      <div class="actions">
+        <!-- EDIT: replace smonson@engineering.upenn.edu in BOTH places on the next line with your email -->
+        <a class="btn" href="mailto:smonson@engineering.upenn.edu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4 7.3V17h16V7.3l-8 4.9zM4.8 7l7.2 4.4L19.2 7H4.8z"/></svg>
+          smonson@engineering.upenn.edu
+        </a>
+        <!-- EDIT: replace with your LinkedIn profile URL -->
+        <a class="btn" href="https://www.linkedin.com/in/stephanie-monson/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3V9.5zm7 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.5z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn ghost" href="files/Stephanie_Monson_poster.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.6l3.3-3.3 1.4 1.4L12 16.4l-4.7-4.7 1.4-1.4 3.3 3.3V3h0zM5 19h14v2H5z"/></svg>
+          Download poster (PDF)
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Poster sections">
+  <ul>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#methods">Methods</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#conclusions">Conclusions</a></li>
+    <li><a href="#future">Future work</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+<p class="hint">Simulations play in place. Tap any animation or map to enlarge it.</p>
+
+<main class="poster">
+
+  <!-- ===================== LEFT COLUMN ===================== -->
+  <div class="col">
+
+    <section class="panel" id="motivation">
+      <h2>Motivation</h2>
+      <div class="panel-body">
+        <div class="pill-card">
+          <span class="lbl red">Two clinical challenges</span>
+          <div class="two" style="padding:10px">
+            <div class="pill-card" style="margin:0;background:#fff">
+              <span class="lbl dark">Therapeutics</span>
+              <div class="txt">Only ~1% of engineered therapeutic nanoparticles (NP) reach their target in solid tumors, in part due to immune recognition and clearance.</div>
+            </div>
+            <div class="pill-card" style="margin:0;background:#fff">
+              <span class="lbl dark">Diagnostics</span>
+              <div class="txt">Tumors exploit extracellular vesicles (EVs) to modulate the tumor immune microenvironment (TIME), making it difficult to predict patient prognoses.</div>
+            </div>
+          </div>
+        </div>
+
+        <figure class="img zoomable">
+          <img src="files/motivation_fig.png" alt="Tumor immune microenvironment overview, engineered nanoparticle trafficking, and tumor exosome trafficking" loading="lazy">
+          <figcaption>Figure created with BioRender.</figcaption>
+        </figure>
+
+        <p class="tagline"><span class="tag">Hypothesis</span>Nanoparticle trafficking in the TIME is governed by coupling between cell-extrinsic immune-recognition processes and cell-intrinsic biophysical mechanisms of cellular uptake, shaping tissue-level behavior.</p>
+        <p class="tagline"><span class="tag">Impact</span>Improved therapeutic design principles and non-invasive diagnostics.</p>
+        <p class="tagline" style="margin:0"><span class="tag">Objective</span>Determine how extrinsic factors influence immune recognition and uptake of nanoparticles.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="methods">
+      <h2>Methods</h2>
+      <div class="panel-body">
+        <p>We develop spatially explicit biophysical models of relevant extrinsic and intrinsic phenomena involved in immune recognition and uptake.</p>
+        <div class="two">
+          <div class="pill-card">
+            <span class="lbl blue">Complement opsonization</span>
+            <div class="txt">
+              <img src="files/methods_complement.png" alt="Engineered nanoparticle with ligands becomes opsonized" loading="lazy" style="border-radius:6px;margin-bottom:8px">
+              <p style="margin-bottom:4px"><b>Agent-based simulation model</b></p>
+              <ul><li>Complement tickover, autocatalysis, diffusion, and decay</li></ul>
+              <p class="small muted" style="margin:4px 0 8px">For more details see [4,5].</p>
+              <p style="margin-bottom:6px"><span class="tag">Control</span>transport parameters and NP spatial geometry</p>
+              <p style="margin:0"><span class="tag">Measure</span>dynamic complement activity and final opsonized fraction</p>
+            </div>
+          </div>
+          <div class="pill-card">
+            <span class="lbl blue">Phagocytic recognition</span>
+            <div class="txt">
+              <img src="files/methods_phagocytic.png" alt="Deformable membrane wrapping a nanoparticle, and a phagocyte" loading="lazy" style="border-radius:6px;margin-bottom:8px">
+              <p style="margin-bottom:4px"><b>Monte Carlo simulation model</b></p>
+              <ul>
+                <li>Deformable membrane surface and asymmetrically opsonized nanoparticle</li>
+                <li>Receptor–ligand binding</li>
+                <li>Clathrin coat formation</li>
+              </ul>
+              <p class="small muted" style="margin:4px 0 8px">For more model details see [3,6].</p>
+              <p style="margin-bottom:6px"><span class="tag">Control</span>membrane biophysical properties by changing parameters of the energy functional</p>
+              <p style="margin:0"><span class="tag">Measure</span>receptor engagement, arrangement, and membrane deformation</p>
+            </div>
+          </div>
+        </div>
+        <figure class="img zoomable" style="margin:4px 0 0">
+          <img src="files/legend.png" alt="Legend: NP opsonization pattern (C3b orange, IgG blue), NP–membrane configuration, receptor spatial map (CR1 receptor binds C3b; Fcγ receptor binds IgG), curvature, phagocytic neck" loading="lazy">
+          <figcaption>Legend. Orange = C3b / CR1 receptor; blue = IgG / Fcγ receptor; dashed ring = phagocytic neck.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== CENTER COLUMN ===================== -->
+  <div class="col">
+    <section class="panel" id="results">
+      <h2>Results</h2>
+      <div class="panel-body">
+
+        <!-- ---------- Result 1 ---------- -->
+        <div class="result" id="r1">
+          <h3 class="sub">1. Nanoparticle <u>recognition</u> follows a reversible switch-like percolation as a function of <u>extrinsic</u> factors</h3>
+          <div class="s1-grid">
+            <div>
+              <div class="vid" style="--ar:1/1" data-cap="Agent-based simulation of complement opsonization: C3b (orange) accumulates on the nanoparticle surface.">
+                <video src="files/s1_opsonization.mp4" poster="files/s1_opsonization.jpg" muted loop playsinline preload="none" aria-label="Complement opsonization simulation"></video>
+                <span class="play-badge">SIMULATION</span>
+              </div>
+              <figcaption>Complement opsonization of a nanoparticle (agent-based simulation).</figcaption>
+            </div>
+            <div>
+              <figure class="img zoomable" style="margin-bottom:10px">
+                <img src="files/s1_heatmap.png" alt="Heatmap of NP opsonization versus C3b activity and NP ligand spacing, showing a sharp transition locus between opsonized and non-opsonized states" loading="lazy">
+              </figure>
+              <div class="pill-card">
+                <span class="lbl blue">Extrinsic factors influencing opsonization</span>
+                <div class="txt"><ul><li><u>C3b activity in TIME</u>: C3b amplification, deactivation, and diffusion</li><li><u>NP ligand spacing/density</u></li></ul></div>
+              </div>
+            </div>
+          </div>
+          <div class="pill-card" style="margin-top:4px">
+            <span class="lbl red">Clinical implication</span>
+            <div class="txt"><ol>
+              <li><u>Small shifts in immune microenvironment</u> may trigger <u>dramatic shifts in complement response</u> to therapies</li>
+              <li>These findings motivate <u>engineering therapies informed by patient-specific biomarkers</u></li>
+            </ol></div>
+          </div>
+        </div>
+
+        <!-- ---------- Result 2a ---------- -->
+        <div class="result" id="r2a">
+          <h3 class="sub">2a. Four distinct regimes of <u>spatial immune receptor engagement</u> based on NP</h3>
+          <div class="arrow-banner">Spatial receptor engagement and membrane deformation change with increasing complement opsonization</div>
+          <div class="regimes">
+            <!-- Regime 1 -->
+            <div class="regime">
+              <div style="position:relative">
+                <span class="num">1</span>
+                <div class="vid" data-cap="Regime 1: no receptor engagement, no curvature.">
+                  <video src="files/s2a_regime1.mp4" poster="files/s2a_regime1.jpg" muted loop playsinline preload="none" aria-label="Regime 1 simulation"></video>
+                </div>
+              </div>
+              <div class="meta">
+                <div><b>Receptors</b><ul><li>None</li></ul><b>Curvature</b><ul><li>None</li></ul></div>
+                <img class="maps" src="files/s2a_maps_r1.png" alt="Regime 1 receptor map and curvature map" loading="lazy" data-cap="Regime 1: receptor spatial map (top) and curvature (bottom).">
+              </div>
+            </div>
+            <!-- Regime 2 -->
+            <div class="regime">
+              <div style="position:relative">
+                <span class="num">2</span>
+                <div class="vid" data-cap="Regime 2: low, annular receptor engagement (more IgG); annular curvature.">
+                  <video src="files/s2a_regime2.mp4" poster="files/s2a_regime2.jpg" muted loop playsinline preload="none" aria-label="Regime 2 simulation"></video>
+                </div>
+              </div>
+              <div class="meta">
+                <div><b>Receptors</b><ul><li>Low</li><li>Annular</li><li>More IgG</li></ul><b>Curvature</b><ul><li>Annular</li></ul></div>
+                <img class="maps" src="files/s2a_maps_r2.png" alt="Regime 2 receptor map and curvature map" loading="lazy" data-cap="Regime 2: receptor spatial map (top) and curvature (bottom).">
+              </div>
+            </div>
+            <!-- Regime 3 -->
+            <div class="regime">
+              <div style="position:relative">
+                <span class="num">3</span>
+                <div class="vid" data-cap="Regime 3: medium, lightly packed receptor engagement (more C3b); partial wrap.">
+                  <video src="files/s2a_regime3.mp4" poster="files/s2a_regime3.jpg" muted loop playsinline preload="none" aria-label="Regime 3 simulation"></video>
+                </div>
+              </div>
+              <div class="meta">
+                <div><b>Receptors</b><ul><li>Medium</li><li>Lightly packed</li><li>More C3b</li></ul><b>Curvature</b><ul><li>Partial wrap</li></ul></div>
+                <img class="maps" src="files/s2a_maps_r3.png" alt="Regime 3 receptor map and curvature map" loading="lazy" data-cap="Regime 3: receptor spatial map (top) and curvature (bottom).">
+              </div>
+            </div>
+            <!-- Regime 4 -->
+            <div class="regime">
+              <div style="position:relative">
+                <span class="num">4</span>
+                <div class="vid" data-cap="Regime 4: high, dense receptor engagement (all C3b); full wrap.">
+                  <video src="files/s2a_regime4.mp4" poster="files/s2a_regime4.jpg" muted loop playsinline preload="none" aria-label="Regime 4 simulation"></video>
+                </div>
+              </div>
+              <div class="meta">
+                <div><b>Receptors</b><ul><li>High</li><li>Dense</li><li>All C3b</li></ul><b>Curvature</b><ul><li>Wrap</li></ul></div>
+                <img class="maps" src="files/s2a_maps_r4.png" alt="Regime 4 receptor map and curvature map" loading="lazy" data-cap="Regime 4: receptor spatial map (top) and curvature (bottom).">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Result 2b ---------- -->
+        <div class="result" id="r2b">
+          <h3 class="sub">2b. Immune engagement and deformation further depends on coupling of <u>extrinsic + intrinsic</u> factors</h3>
+          <!-- EDIT: column labels. Files are ordered excess area 5% → 25% → 45% (from the simulation names). -->
+          <div class="grid2b">
+            <div></div>
+            <div class="colhead">Excess area 5%</div>
+            <div class="colhead">Excess area 25%</div>
+            <div class="colhead">Excess area 45%</div>
+
+            <div class="rowhead">Regime 2</div>
+            <div class="cell">
+              <div class="vid" data-cap="Extrinsic regime 2, membrane excess area 5%.">
+                <video src="files/s2b_r2_ea5.mp4" poster="files/s2b_r2_ea5.jpg" muted loop playsinline preload="none" aria-label="Regime 2, excess area 5%"></video>
+              </div>
+              <img src="files/s2b_maps_r2_ea5.png" alt="Receptor and curvature maps, regime 2, excess area 5%" loading="lazy" data-cap="Regime 2, excess area 5%: receptor map (left) and curvature (right).">
+            </div>
+            <div class="cell">
+              <div class="vid" data-cap="Extrinsic regime 2, membrane excess area 25%.">
+                <video src="files/s2b_r2_ea25.mp4" poster="files/s2b_r2_ea25.jpg" muted loop playsinline preload="none" aria-label="Regime 2, excess area 25%"></video>
+              </div>
+              <img src="files/s2b_maps_r2_ea25.png" alt="Receptor and curvature maps, regime 2, excess area 25%" loading="lazy" data-cap="Regime 2, excess area 25%: receptor map (left) and curvature (right).">
+            </div>
+            <div class="cell">
+              <div class="vid" data-cap="Extrinsic regime 2, membrane excess area 45%.">
+                <video src="files/s2b_r2_ea45.mp4" poster="files/s2b_r2_ea45.jpg" muted loop playsinline preload="none" aria-label="Regime 2, excess area 45%"></video>
+              </div>
+              <img src="files/s2b_maps_r2_ea45.png" alt="Receptor and curvature maps, regime 2, excess area 45%" loading="lazy" data-cap="Regime 2, excess area 45%: receptor map (left) and curvature (right).">
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="rowhead">Regime 4</div>
+            <div class="cell">
+              <div class="vid" data-cap="Extrinsic regime 4, membrane excess area 5%.">
+                <video src="files/s2b_r4_ea5.mp4" poster="files/s2b_r4_ea5.jpg" muted loop playsinline preload="none" aria-label="Regime 4, excess area 5%"></video>
+              </div>
+              <img src="files/s2b_maps_r4_ea5.png" alt="Receptor and curvature maps, regime 4, excess area 5%" loading="lazy" data-cap="Regime 4, excess area 5%: receptor map (left) and curvature (right).">
+            </div>
+            <div class="cell">
+              <div class="vid" data-cap="Extrinsic regime 4, membrane excess area 25%.">
+                <video src="files/s2b_r4_ea25.mp4" poster="files/s2b_r4_ea25.jpg" muted loop playsinline preload="none" aria-label="Regime 4, excess area 25%"></video>
+              </div>
+              <img src="files/s2b_maps_r4_ea25.png" alt="Receptor and curvature maps, regime 4, excess area 25%" loading="lazy" data-cap="Regime 4, excess area 25%: receptor map (left) and curvature (right).">
+            </div>
+            <div class="cell">
+              <div class="vid" data-cap="Extrinsic regime 4, membrane excess area 45%.">
+                <video src="files/s2b_r4_ea45.mp4" poster="files/s2b_r4_ea45.jpg" muted loop playsinline preload="none" aria-label="Regime 4, excess area 45%"></video>
+              </div>
+              <img src="files/s2b_maps_r4_ea45.png" alt="Receptor and curvature maps, regime 4, excess area 45%" loading="lazy" data-cap="Regime 4, excess area 45%: receptor map (left) and curvature (right).">
+            </div>
+          </div>
+          <div class="remodel-banner">Receptor engagement and membrane deformation change in response to <u>intrinsic</u> cytoskeleton remodeling</div>
+          <div class="pill-card" style="margin:0">
+            <span class="lbl red">Clinical implication</span>
+            <div class="txt"><ol>
+              <li><u>Heterogeneous membrane remodeling in the TIME</u> influences <u>NP clearance</u> and <u>exosome-mediated signal transduction</u></li>
+              <li><u>Membrane biomarker profiling</u> could help <u>customize NP treatments</u> and <u>contextualize exosome surface signatures</u></li>
+            </ol></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== RIGHT COLUMN ===================== -->
+  <div class="col">
+    <section class="panel" id="conclusions">
+      <h2>Conclusions and Impact</h2>
+      <div class="panel-body flow">
+        <div class="pill-card">
+          <span class="lbl navy">Conclusions</span>
+          <div class="txt">The coupling of cell-extrinsic (complement activity and nanoparticle surface chemistry) and cell-intrinsic (membrane and receptor properties) factors drives immune receptor engagement and membrane remodeling.</div>
+        </div>
+        <div class="down" aria-hidden="true">▼</div>
+        <div class="pill-card">
+          <span class="lbl blue">Scientific impact</span>
+          <div class="txt">Our work delineates key physical mechanisms governing NP recognition and uptake under heterogeneous immune and biophysical conditions.</div>
+        </div>
+        <div class="down" aria-hidden="true">▼</div>
+        <div class="pill-card">
+          <span class="lbl red">Clinical impact</span>
+          <div class="txt">
+            <p>These findings motivate integrating <u>immune, membrane, and single-EV profiling biomarkers</u> to inform <u>patient-specific diagnostics</u> and <u>therapy optimization</u> to tackle <u>inter- and intra-patient heterogeneity</u>.</p>
+            <p style="margin:0">These physics may govern <u>heterogeneous signaling</u> responsible for (1) <u>malignant and metastatic transformation via exosome trafficking</u> and (2) <u>reduced therapeutic efficacy</u> in tumors.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="future">
+      <h2>Future Work</h2>
+      <div class="panel-body fw-grid">
+        <div>
+          <figure class="img zoomable" style="margin-bottom:8px"><img src="files/fw_ev.png" alt="Cancer cell-secreted EVs with surface PD-L1 engaging T-cell receptors (Parihar et al. 2025)" loading="lazy"></figure>
+          <div class="pill-card" style="margin:0"><div class="txt">Study tumor immune evasion by modeling EVs with surface PD-L1 engaging with T-cell receptors<br><br>Visualize the interface with STORM microscopy</div></div>
+        </div>
+        <div>
+          <figure class="img zoomable" style="margin-bottom:8px"><img src="files/fw_tissue.png" alt="Tissue-level simulation of a tumor showing regressive, blastemal, and dead cell types" loading="lazy"></figure>
+          <div class="pill-card" style="margin:0"><div class="txt">Study the effect of NP and EV uptake on tumor heterogeneity using tissue-level simulation</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="ack">
+      <h2>Acknowledgements</h2>
+      <div class="panel-body ack">
+        <p style="margin:0">We thank funding and computing support in part from NIH, Physical Sciences-Oncology Network, Penn PARCC, CIPD Restore Grant and NSF ACCESS.</p>
+        <img src="files/nih.png" alt="National Institutes of Health" loading="lazy">
+      </div>
+    </section>
+
+    <section class="panel" id="references">
+      <h2>References</h2>
+      <div class="panel-body">
+        <ol class="refs">
+          <li>Parihar, K., Liu, D.A., Hassan, G. <i>et al.</i> <i>Nat. Biomed. Eng.</i> 9, 1202–1221 (2025). <a href="https://doi.org/10.1038/s41551-025-01446-0" target="_blank" rel="noopener">doi:10.1038/s41551-025-01446-0</a></li>
+          <li>Wilhelm, S., Tavares, A., Dai, Q. <i>et al.</i> <i>Nat. Rev. Mater.</i> 1, 16014 (2016). <a href="https://doi.org/10.1038/natrevmats.2016.14" target="_blank" rel="noopener">doi:10.1038/natrevmats.2016.14</a></li>
+          <li>Ramakrishnan, N. <i>et al.</i> <i>R. Soc. Open Sci.</i> 3, 160260 (2016). <a href="https://doi.org/10.1098/rsos.160260" target="_blank" rel="noopener">doi:10.1098/rsos.160260</a></li>
+          <li>Wang <i>et al.</i> <i>Cell</i> 188, 4058–4073 (2025). <a href="https://doi.org/10.1016/j.cell.2025.05.026" target="_blank" rel="noopener">doi:10.1016/j.cell.2025.05.026</a></li>
+          <li><b>Monson, S.</b>, Kulkarni, S., Myerson, J., Brenner, J., Radhakrishnan, R. <i>bioRxiv</i> 2026.08.14.744667. <a href="https://doi.org/10.64898/2026.08.14.744667" target="_blank" rel="noopener">doi:10.64898/2026.08.14.744667</a></li>
+          <li><b>Monson, S.</b>, Parihar, K. <i>Manuscript in preparation.</i></li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>Thanks for stopping by! · <a href="files/Stephanie_Monson_poster.pdf" target="_blank" rel="noopener">Full poster (PDF)</a></footer>
+
+<!-- Lightbox -->
+<dialog class="lb" id="lb" aria-label="Enlarged figure">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">×</button>
+    <div id="lb-media"></div>
+    <div class="lb-cap" id="lb-cap"></div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  // Play videos only while they are on screen (saves battery and data on phones).
+  var vids = Array.prototype.slice.call(document.querySelectorAll('.vid video'));
+  function tryPlay(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { if (v.preload === 'none') { v.preload = 'auto'; } tryPlay(v); }
+        else { v.pause(); }
+      });
+    }, { rootMargin: '150px 0px', threshold: 0.15 });
+    vids.forEach(function (v) { io.observe(v); });
+  } else {
+    vids.forEach(function (v) { v.preload = 'auto'; v.autoplay = true; tryPlay(v); });
+  }
+
+  // Lightbox for videos and figures
+  var lb = document.getElementById('lb'), media = document.getElementById('lb-media'), cap = document.getElementById('lb-cap');
+  function open(el, text) {
+    media.innerHTML = '';
+    media.appendChild(el);
+    cap.textContent = text || '';
+    cap.style.display = text ? '' : 'none';
+    if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+    if (el.tagName === 'VIDEO') tryPlay(el);
+  }
+  function close() {
+    var v = media.querySelector('video'); if (v) v.pause();
+    if (lb.close) lb.close(); else lb.removeAttribute('open');
+    media.innerHTML = '';
+  }
+  document.querySelectorAll('.vid').forEach(function (box) {
+    box.addEventListener('click', function () {
+      var src = box.querySelector('video');
+      var v = document.createElement('video');
+      v.src = src.getAttribute('src'); v.poster = src.getAttribute('poster') || '';
+      v.muted = true; v.loop = true; v.playsInline = true; v.controls = true; v.autoplay = true;
+      open(v, box.getAttribute('data-cap'));
+    });
+  });
+  document.querySelectorAll('.zoomable img, .regime .maps, .grid2b .cell img').forEach(function (img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function () {
+      var i = document.createElement('img');
+      i.src = img.src; i.alt = img.alt;
+      var fig = img.closest('figure'); var fc = fig && fig.querySelector('figcaption');
+      open(i, img.getAttribute('data-cap') || (fc ? fc.textContent : img.alt));
+    });
+  });
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  lb.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+})();
+</script>
 </body>
 </html>
